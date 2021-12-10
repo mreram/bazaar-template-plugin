@@ -6,5 +6,6 @@ class ModuleWizardModel : WizardModel("Bazaar Module Wizard") {
     init {
         add(ModuleWizardStep1())
         add(ModuleWizardStep2())
+        add(ModuleWizardStep3())
     }
 }
