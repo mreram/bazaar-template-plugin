@@ -4,15 +4,39 @@
     <name>bazaar-template-plugin</name>
     <vendor>mreram</vendor>
 
-    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>org.jetbrains.kotlin</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>org.jetbrains.android</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.mreram.bazaartemplateplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.mreram.bazaartemplateplugin.services.MyProjectService"/>
+        <moduleBuilder builderClass="com.github.mreram.bazaartemplateplugin.DemoModuleWizardStep"
+            id="DEMO_STEP"
+            order="first" />
     </extensions>
+    <actions>
+        <group
+            class="com.github.mreram.bazaartemplateplugin.actions.BazaarTemplateActionGroup"
+            id="bazaar"
+            popup="true"
+            text="Bazaar Templates">
+            <add-to-group anchor="first"
+                group-id="NewGroup"
+                relative-to-action="bazaar.module" />
 
-    <applicationListeners>
-        <listener class="com.github.mreram.bazaartemplateplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+                id="bazaar.module"
+                text="New module" />
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+                id="bazaar.fragment"
+                text="New Fragment" />
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+                id="bazaar.viewModel"
+                text="New ViewModel" />
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+                id="bazaar.daggerComponent"
+                text="New Dagger Component" />
+        </group>
+
+    </actions>
 </idea-plugin>
