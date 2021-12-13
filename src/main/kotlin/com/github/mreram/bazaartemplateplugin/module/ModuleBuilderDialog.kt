@@ -20,6 +20,7 @@ class ModuleBuilderDialog(private val destination: String) : WizardDialog<Module
     override fun doOKAction() {
         super.doOKAction()
         module {
+            name(ModuleConfig.name)
             destination(destination)
         }
     }

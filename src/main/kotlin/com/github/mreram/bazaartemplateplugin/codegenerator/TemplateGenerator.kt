@@ -5,9 +5,21 @@ import java.io.FileOutputStream
 
 class TemplateGenerator {
 
-    fun createTemplateFromResources(fileNames: Array<String>, destination: String) {
+    fun createTemplateFromResources(
+        fileNames: Array<String>,
+        destination: String,
+        moduleName: String
+    ) {
         fileNames.forEach { fileName ->
-            val fileDestination = getFinalDestination(destination, fileName)
+            val fileDestination = getFinalDestination(destination, fileName).replace(
+                "module",
+                moduleName
+            )
+            fileDestination.replace("module", "")
+            createDirectoryIfNotExists(fileDestination)
+            if (fileName.last() == '/') {
+                return@forEach
+            }
             createFileIfNotExists(fileDestination)
             val inputSteam = javaClass.classLoader.getResourceAsStream(fileName)
             val fileOutputStream = FileOutputStream(fileDestination)
@@ -28,8 +40,7 @@ class TemplateGenerator {
         ).replace(".ft", "")
     }
 
-    private fun createFileIfNotExists(fileDestination: String) {
-        val file = File(fileDestination)
+    private fun createDirectoryIfNotExists(fileDestination: String) {
         val directoryPath = fileDestination.substring(
             startIndex = 0,
             fileDestination.indexOfLast { it == '/' }
@@ -38,6 +49,10 @@ class TemplateGenerator {
         if (directory.exists().not()) {
             directory.mkdirs()
         }
+    }
+
+    private fun createFileIfNotExists(fileDestination: String) {
+        val file = File(fileDestination)
         if (file.exists().not()) {
             file.createNewFile()
         }

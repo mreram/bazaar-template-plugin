@@ -16,11 +16,22 @@ import javax.swing.JRadioButton
 
 class ModuleWizardStep1 : WizardStep<WizardModel>() {
 
+    private lateinit var nameTextField: JBTextField
+    private var component: JComponent? = null
+
     override fun prepare(state: WizardNavigationState?): JComponent {
+        if (component == null) {
+            component = createUi()
+        }
+        return requireNotNull(component)
+    }
+
+    private fun createUi(): JComponent {
+        nameTextField = JBTextField()
         val dialogPanel = JPanel(VerticalLayout().apply { gap = 5 })
         with(dialogPanel) {
             add(JLabel("Name:"), BorderLayout.LINE_START)
-            add(JBTextField(), BorderLayout.LINE_START)
+            add(nameTextField, BorderLayout.LINE_START)
             dialogPanel.add(Box.createVerticalStrut(8))
             add(JLabel("Dagger Component type:"), BorderLayout.LINE_START)
             val buttonGroup = ButtonGroup()
@@ -33,5 +44,10 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
                 preferredSize = Dimension(500, 500)
             }
         }
+    }
+
+    override fun onNext(model: WizardModel?): WizardStep<*> {
+        ModuleConfig.name = nameTextField.text
+        return super.onNext(model)
     }
 }
