@@ -29,11 +29,11 @@ class TemplateGenerator {
 
     private fun createFileIfNotExists(fileDestination: String) {
         val file = File(fileDestination)
-        val directory = File(
-            fileDestination.substring(
-                startIndex = 0,
-                fileDestination.indexOfLast { it == '/' })
+        val directoryPath = fileDestination.substring(
+            startIndex = 0,
+            fileDestination.indexOfLast { it == '/' }
         )
+        val directory = File(directoryPath)
         if (directory.exists().not()) {
             directory.mkdirs()
         }
