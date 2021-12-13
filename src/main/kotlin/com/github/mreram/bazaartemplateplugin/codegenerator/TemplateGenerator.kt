@@ -21,11 +21,12 @@ class TemplateGenerator {
         }
     }
 
-    private fun getFinalDestination(destination: String, fileName: String) =
-        destination + fileName.replace(
+    private fun getFinalDestination(destination: String, fileName: String): String {
+        return destination + fileName.replace(
             BASE_PATH_TEMPLATES,
             ""
         ).replace(".ft", "")
+    }
 
     private fun createFileIfNotExists(fileDestination: String) {
         val file = File(fileDestination)
