@@ -6,20 +6,18 @@ import java.io.FileOutputStream
 class TemplateGenerator {
 
     fun createTemplateFromResources(fileNames: Array<String>, destination: String) {
-
         fileNames.forEach { fileName ->
             val fileDestination = getFinalDestination(destination, fileName)
             createFileIfNotExists(fileDestination)
             val inputSteam = javaClass.classLoader.getResourceAsStream(fileName)
-            FileOutputStream(fileDestination).run {
-                val buffer = ByteArray(BUFFER_SIZE)
-                while (true) {
-                    val byteCount = inputSteam?.read(buffer) ?: break
-                    if (byteCount < 0) break
-                    write(buffer, 0, byteCount)
-                }
-                flush()
+            val fileOutputStream = FileOutputStream(fileDestination)
+            val buffer = ByteArray(BUFFER_SIZE)
+            while (true) {
+                val byteCount = inputSteam?.read(buffer) ?: break
+                if (byteCount < 0) break
+                fileOutputStream.write(buffer, 0, byteCount)
             }
+            fileOutputStream.flush()
         }
     }
 
