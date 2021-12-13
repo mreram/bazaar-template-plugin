@@ -1,7 +1,6 @@
 package com.github.mreram.bazaartemplateplugin.module
 
-import com.github.mreram.bazaartemplateplugin.codegenerator.ModuleBuilder
-import com.intellij.openapi.ui.Messages
+import com.github.mreram.bazaartemplateplugin.builders.module
 import com.intellij.ui.wizard.WizardDialog
 import java.lang.reflect.Field
 import javax.swing.JButton
@@ -20,7 +19,8 @@ class ModuleBuilderDialog(private val destination: String) : WizardDialog<Module
 
     override fun doOKAction() {
         super.doOKAction()
-//        Messages.showMessageDialog("Babaaaa vaysa", "Wait", null)
-        ModuleBuilder().build(destination)
+        module {
+            destination(destination)
+        }
     }
 }
