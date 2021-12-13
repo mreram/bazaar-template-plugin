@@ -3,7 +3,7 @@ package com.github.mreram.bazaartemplateplugin.codegenerator
 import java.io.File
 import java.io.FileOutputStream
 
-class CodeGenerator {
+class TemplateGenerator {
 
     fun createTemplateFromResources(fileNames: Array<String>, destination: String) {
 

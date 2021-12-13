@@ -1,6 +1,6 @@
 package com.github.mreram.bazaartemplateplugin.builders
 
-import com.github.mreram.bazaartemplateplugin.codegenerator.CodeGenerator
+import com.github.mreram.bazaartemplateplugin.codegenerator.TemplateGenerator
 
 private const val BASE_PATH_TEMPLATES_MODULE = "/templates/module"
 
@@ -12,7 +12,7 @@ fun module(builder: ModuleBuilder.() -> Unit) {
     )
 
     val module = ModuleBuilder().apply(builder).build()
-    CodeGenerator().createTemplateFromResources(fileNames, module.destination)
+    TemplateGenerator().createTemplateFromResources(fileNames, module.destination)
 }
 
 data class Module(val destination: String, val name: String)
