@@ -1,8 +1,9 @@
 package com.github.mreram.bazaartemplateplugin.module
 
 import com.android.tools.idea.gradle.project.sync.GradleSyncInvoker
-import com.github.mreram.bazaartemplateplugin.builders.module
+import com.github.mreram.bazaartemplateplugin.builders.module.module
 import com.google.wireless.android.sdk.stats.GradleSyncStats
+import com.intellij.jarRepository.settings.reloadAllRepositoryLibraries
 import com.intellij.openapi.project.Project
 import com.intellij.ui.wizard.WizardDialog
 import java.lang.reflect.Field
@@ -10,7 +11,7 @@ import javax.swing.JButton
 
 class ModuleBuilderDialog(
     private val project: Project,
-    private val destination: String
+    private val rootPath: String
 ) : WizardDialog<ModuleWizardModel>(
     true,
     ModuleWizardModel()
@@ -28,9 +29,9 @@ class ModuleBuilderDialog(
         module {
             project(project)
             name(ModuleConfig.name)
-            destination(destination)
+            rootPath(rootPath)
         }
-        Thread.sleep(DELAY_SYNC_GRADLE_MILLISECOND)
+        reloadAllRepositoryLibraries(project)
         GradleSyncInvoker.getInstance().requestProjectSync(
             project,
             GradleSyncInvoker.Request(

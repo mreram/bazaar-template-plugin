@@ -2,39 +2,57 @@ package com.github.mreram.bazaartemplateplugin.codegenerator
 
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.file.Files
+import java.nio.file.Paths
 
 class TemplateGenerator {
 
     fun createTemplateFromResources(
-        fileNames: Array<String>,
-        destination: String,
-        moduleName: String
+        filePaths: Array<String>,
+        rootPath: String,
+        pathArguments: Map<String, String>,
+        contentArguments: Map<String, String>
     ) {
-        fileNames.forEach { fileName ->
-            val fileDestination = getFinalDestination(destination, fileName).replace(
-                "module",
-                moduleName
-            )
-            fileDestination.replace("module", "")
-            createDirectoryIfNotExists(fileDestination)
+        filePaths.forEach { fileName ->
+            val filePath = getFilePath(rootPath, fileName).replaceArguments(pathArguments)
+            createDirectoryIfNotExists(filePath)
             if (fileName.last() == '/') {
                 return@forEach
             }
-            createFileIfNotExists(fileDestination)
-            val inputSteam = javaClass.classLoader.getResourceAsStream(fileName)
-            val fileOutputStream = FileOutputStream(fileDestination)
+            createFileIfNotExists(filePath)
+            val inputSteam = javaClass.classLoader.getResourceAsStream(fileName) ?: return
+            val fileOutputStream = FileOutputStream(filePath)
             val buffer = ByteArray(BUFFER_SIZE)
             while (true) {
-                val byteCount = inputSteam?.read(buffer) ?: break
+                val byteCount = inputSteam.read(buffer)
                 if (byteCount < 0) break
                 fileOutputStream.write(buffer, 0, byteCount)
             }
+            val path = Paths.get(filePath)
+            var content = String(Files.readAllBytes(path), Charsets.UTF_8)
+            content = content.replaceArguments(contentArguments)
+            Files.write(path, content.toByteArray(Charsets.UTF_8))
             fileOutputStream.flush()
         }
     }
 
-    private fun getFinalDestination(destination: String, fileName: String): String {
-        return destination + fileName.replace(
+    private fun String.replaceArguments(pathArguments: Map<String, String>): String {
+        var replaced: String = this
+        pathArguments.forEach {
+            replaced = replaced.replace(it.key, it.value)
+        }
+        return replaced
+    }
+
+    private fun getFilePath(rootPath: String, filePath: String): String {
+        return rootPath + getFilePathWithoutTemplateSpecifications(filePath)
+    }
+
+    /**
+     * Removing template/ path from file path and .ft from file name
+     */
+    private fun getFilePathWithoutTemplateSpecifications(fileName: String): String {
+        return fileName.replace(
             BASE_PATH_TEMPLATES,
             ""
         ).replace(".ft", "")
