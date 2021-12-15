@@ -1,11 +1,17 @@
 package com.github.mreram.bazaartemplateplugin.module
 
+import com.android.tools.idea.gradle.project.sync.GradleSyncInvoker
 import com.github.mreram.bazaartemplateplugin.builders.module
+import com.google.wireless.android.sdk.stats.GradleSyncStats
+import com.intellij.openapi.project.Project
 import com.intellij.ui.wizard.WizardDialog
 import java.lang.reflect.Field
 import javax.swing.JButton
 
-class ModuleBuilderDialog(private val destination: String) : WizardDialog<ModuleWizardModel>(
+class ModuleBuilderDialog(
+    private val project: Project,
+    private val destination: String
+) : WizardDialog<ModuleWizardModel>(
     true,
     ModuleWizardModel()
 ) {
@@ -14,14 +20,27 @@ class ModuleBuilderDialog(private val destination: String) : WizardDialog<Module
         title = "New Bazaar Module"
         val myFinish: Field = javaClass.superclass.getDeclaredField("myFinish")
         myFinish.isAccessible = true
-        (myFinish.get(this) as JButton).text = "Besaz haji"
+        (myFinish.get(this) as JButton).text = "Besaz"
     }
 
     override fun doOKAction() {
         super.doOKAction()
         module {
+            project(project)
             name(ModuleConfig.name)
             destination(destination)
         }
+        Thread.sleep(DELAY_SYNC_GRADLE_MILLISECOND)
+        GradleSyncInvoker.getInstance().requestProjectSync(
+            project,
+            GradleSyncInvoker.Request(
+                GradleSyncStats.Trigger.TRIGGER_MODIFIER_ADD_MODULE_DEPENDENCY
+            )
+        )
+    }
+
+    companion object {
+
+        private const val DELAY_SYNC_GRADLE_MILLISECOND = 500L
     }
 }

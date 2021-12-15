@@ -9,4 +9,5 @@ import javax.swing.*;
 public class Icons {
 
   public static final Icon main_icon = IconLoader.getIcon("/icons/main_icon.png", Icons.class);
+  public static final Icon dagger_icon = IconLoader.getIcon("/icons/dagger_icon.png", Icons.class);
 }
