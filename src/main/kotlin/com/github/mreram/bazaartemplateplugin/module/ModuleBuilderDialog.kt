@@ -30,6 +30,11 @@ class ModuleBuilderDialog(
             project(project)
             name(ModuleConfig.name)
             rootPath(rootPath)
+            hasDataSource(ModuleConfig.hasDataSource)
+            hasDi(ModuleConfig.hasDi)
+            hasView(ModuleConfig.hasView)
+            hasActionLog(ModuleConfig.hasActionLog)
+            hasNetwork(ModuleConfig.hasNetwork)
         }
         reloadAllRepositoryLibraries(project)
         GradleSyncInvoker.getInstance().requestProjectSync(

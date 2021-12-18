@@ -11,7 +11,6 @@ import com.intellij.ui.wizard.WizardStep
 import org.jdesktop.swingx.VerticalLayout
 import org.jetbrains.kotlin.idea.core.util.onTextChange
 import java.awt.BorderLayout
-import java.awt.Color
 import java.awt.Dimension
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -19,6 +18,11 @@ import javax.swing.JPanel
 class ModuleWizardStep1 : WizardStep<WizardModel>() {
 
     private lateinit var nameTextField: JBTextField
+    private lateinit var datasourceCheckBox: JBCheckBox
+    private lateinit var actionLogCheckBox: JBCheckBox
+    private lateinit var networkCheckBox: JBCheckBox
+    private lateinit var viewCheckBox: JBCheckBox
+    private lateinit var diCheckBox: JBCheckBox
     private var component: JComponent? = null
     private var errorLabel: JBLabel? = null
 
@@ -47,11 +51,11 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
             add(nameTextField, BorderLayout.LINE_START)
             dialogPanel.add(JBBox.createVerticalStrut(8))
             add(JBLabel("Config your structure, you need to:"), BorderLayout.LINE_START)
-            add(JBCheckBox("Datasource"))
-            add(JBCheckBox("Action log"))
-            add(JBCheckBox("Network api"))
-            add(JBCheckBox("View"))
-            add(JBCheckBox("Adapter"))
+            datasourceCheckBox = JBCheckBox("Datasource").also { add(it) }
+            actionLogCheckBox = JBCheckBox("Action log").also { add(it) }
+            networkCheckBox = JBCheckBox("Network api").also { add(it) }
+            viewCheckBox = JBCheckBox("View").also { add(it) }
+            diCheckBox = JBCheckBox("Dependency injection").also { add(it) }
             errorLabel = JBLabel().also { it.foreground = JBColor.RED }
             add(errorLabel)
             return dialogPanel.apply {
@@ -62,6 +66,11 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
 
     override fun onNext(model: WizardModel?): WizardStep<*> {
         ModuleConfig.name = nameTextField.text
+        ModuleConfig.hasActionLog = actionLogCheckBox.isSelected
+        ModuleConfig.hasDataSource = datasourceCheckBox.isSelected
+        ModuleConfig.hasNetwork = networkCheckBox.isSelected
+        ModuleConfig.hasView = viewCheckBox.isSelected
+        ModuleConfig.hasDi = diCheckBox.isSelected
         return super.onNext(model)
     }
 }

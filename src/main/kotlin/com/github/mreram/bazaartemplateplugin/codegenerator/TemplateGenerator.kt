@@ -8,7 +8,7 @@ import java.nio.file.Paths
 class TemplateGenerator {
 
     fun createTemplateFromResources(
-        filePaths: Array<String>,
+        filePaths: List<String>,
         rootPath: String,
         pathArguments: Map<String, String>,
         contentArguments: Map<String, String>
