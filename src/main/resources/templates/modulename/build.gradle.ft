@@ -1,42 +1,48 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+
+apply from: "$rootDir/configs/detektconfig.gradle"
 
 android {
-    compileSdkVersion 31
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$library.kotlin"
+
+    implementation "com.google.dagger:dagger:$library.dagger"
+    implementation "com.google.dagger:dagger-android:$library.dagger"
+    kapt "com.google.dagger:dagger-compiler:$library.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$library.dagger"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$library.navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$library.navigation"
+
+    implementation project(":giant")
+    implementation project(":common:plugins")
+    implementation project(":library:androiddagger")
+    implementation project(":library:dependencyinjection")
+    implementation project(':library:base:dagger')
+    implementation project(":library:navigation")
+    implementation project(":library:plaugin")
+    implementation project(":library:designsystem")
+    implementation project(":library:imageloader")
+    implementation project(":library:base:util")
+    implementation project(":library:logger")
+    implementation project(':library:base:network')
+    implementation project(':library:analytics')
+
+    testImplementation "junit:junit:$library.junit"
+    testImplementation "androidx.arch.core:core-testing:$library.coreTesting"
+    testImplementation project(":library:test")
+    testImplementation "io.mockk:mockk:$library.mockk"
 }

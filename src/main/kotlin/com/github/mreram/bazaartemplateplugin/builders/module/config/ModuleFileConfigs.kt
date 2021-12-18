@@ -17,6 +17,7 @@ object ModuleFileConfigs {
     val networkFilePaths: Array<String> = arrayOf(
         "$BASE_PATH_JAVA_FILES_MODULE/model/",
         "$BASE_PATH_JAVA_FILES_MODULE/request/",
+        "$BASE_PATH_JAVA_FILES_MODULE/response/",
         "$BASE_PATH_JAVA_FILES_MODULE/api/"
     )
     val viewFilePaths: Array<String> = arrayOf(

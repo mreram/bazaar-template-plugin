@@ -15,7 +15,6 @@ fun module(builder: ModuleBuilder.() -> Unit) {
         contentArguments = ModuleArgumentConfigs.contentArguments(module)
     )
     addModuleToSettingsGradle(module)
-//    Messages.showErrorDialog(module.project, "Mikhay be jat code ham bezanam?", "Haa?")
 }
 
 private fun addModuleToSettingsGradle(module: Module) {

@@ -27,13 +27,13 @@
             <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
                 id="bazaar.module"
                 text="New module" />
-            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewFragmentAction"
                 id="bazaar.fragment"
                 text="New Fragment" />
-            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewViewModelAction"
                 id="bazaar.viewModel"
                 text="New ViewModel" />
-            <action class="com.github.mreram.bazaartemplateplugin.actions.NewModuleAction"
+            <action class="com.github.mreram.bazaartemplateplugin.actions.NewDaggerComponent"
                 id="bazaar.daggerComponent"
                 text="New Dagger Component" />
         </group>
