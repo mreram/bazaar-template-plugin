@@ -18,10 +18,14 @@ fun module(builder: ModuleBuilder.() -> Unit) {
 }
 
 private fun addModuleToSettingsGradle(module: Module) {
+    val prefixModule = module.rootPath
+        .replace(module.project.basePath.toString(), "")
+        .replace("/", ":")
+
     File(
         module.project.basePath,
         "settings.gradle"
-    ).appendText("\ninclude ':${module.name}'")
+    ).appendText("\ninclude '${prefixModule}:${module.name}'")
 }
 
 data class Module(
