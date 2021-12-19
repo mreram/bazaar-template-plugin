@@ -14,11 +14,6 @@
     <depends>com.intellij.modules.androidstudio</depends>
     <depends>org.jetbrains.android</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <moduleBuilder builderClass="com.github.mreram.bazaartemplateplugin.DemoModuleWizardStep"
-            id="DEMO_STEP"
-            order="first" />
-    </extensions>
     <actions>
         <group
             class="com.github.mreram.bazaartemplateplugin.actions.BazaarTemplateActionGroup"
