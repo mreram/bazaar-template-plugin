@@ -4,6 +4,11 @@
     <name>bazaar-template-plugin</name>
     <vendor>mreram</vendor>
 
+    <description><![CDATA[
+        This plugin generates CafeBazaar code templates to improve the speed of
+        the development of this project
+    ]]></description>
+
     <depends>com.intellij.modules.lang</depends>
     <depends>org.jetbrains.kotlin</depends>
     <depends>com.intellij.modules.androidstudio</depends>
