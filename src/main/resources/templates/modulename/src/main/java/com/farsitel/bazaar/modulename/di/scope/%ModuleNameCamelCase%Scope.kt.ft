@@ -1,0 +1,7 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.scope
+
+import javax.inject.Scope
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class %MODULE_NAME_CAMEL_CASE%Scope

@@ -4,6 +4,13 @@ import com.github.mreram.bazaartemplateplugin.builders.module.Module
 
 object ModuleArgumentConfigs {
 
-    fun contentArguments(module: Module) = mapOf("#MODULE_NAME#" to module.name)
-    fun pathArguments(module: Module) = mapOf("modulename" to module.name)
+    fun contentArguments(module: Module) = mapOf(
+        "%MODULE_NAME%" to module.name,
+        "%MODULE_NAME_CAMEL_CASE%" to module.nameCamelCase
+    )
+
+    fun pathArguments(module: Module) = mapOf(
+        "modulename" to module.name,
+        "%ModuleNameCamelCase%" to module.nameCamelCase
+    )
 }

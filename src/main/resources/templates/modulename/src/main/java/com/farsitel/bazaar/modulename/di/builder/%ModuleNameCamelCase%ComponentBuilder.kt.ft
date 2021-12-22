@@ -1,0 +1,24 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.builder
+
+import com.farsitel.bazaar.%MODULE_NAME%.di.component.%MODULE_NAME_CAMEL_CASE%Component
+import com.farsitel.bazaar.%MODULE_NAME%.di.component.Dagger%MODULE_NAME_CAMEL_CASE%Component
+import com.farsitel.bazaar.base.network.di.builder.NetworkComponentBuilder
+import com.farsitel.bazaar.dagger.BazaarComponentBuilder
+import com.farsitel.bazaar.dependencyinjection.ComponentBuilder
+import com.farsitel.bazaar.dependencyinjection.StartupTasks
+import com.farsitel.bazaar.dependencyinjection.UpgradeTasks
+import com.farsitel.bazaar.giant.di.builder.GiantComponentBuilder
+
+object %MODULE_NAME_CAMEL_CASE%ComponentBuilder : ComponentBuilder<%MODULE_NAME_CAMEL_CASE%Component>() {
+
+    override fun initializeComponent(
+        addStartupTask: (StartupTasks) -> Unit,
+        addUpgradeTask: (UpgradeTasks) -> Unit
+    ): %MODULE_NAME_CAMEL_CASE%Component {
+        return Dagger%MODULE_NAME_CAMEL_CASE%Component.builder()
+            .bazaarComponent(BazaarComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
+            .giantComponent(GiantComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
+            .networkComponent(NetworkComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
+            .build()
+    }
+}

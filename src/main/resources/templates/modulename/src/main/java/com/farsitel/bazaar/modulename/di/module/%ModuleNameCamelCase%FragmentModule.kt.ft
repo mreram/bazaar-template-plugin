@@ -1,0 +1,14 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.module
+
+import com.farsitel.bazaar.%MODULE_NAME%.di.scope.%MODULE_NAME_CAMEL_CASE%Scope
+import com.farsitel.bazaar.%MODULE_NAME%.view.%MODULE_NAME_CAMEL_CASE%Fragment
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
+
+@Module
+interface %MODULE_NAME_CAMEL_CASE%FragmentModule {
+
+   // @%MODULE_NAME_CAMEL_CASE%Scope
+   // @ContributesAndroidInjector(modules = [%MODULE_NAME_CAMEL_CASE%ViewModelModule::class])
+   // fun bind%MODULE_NAME_CAMEL_CASE%Fragment(): %MODULE_NAME_CAMEL_CASE%Fragment
+}

@@ -1,0 +1,30 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.module
+
+import com.farsitel.bazaar.base.network.di.qualifier.NormalOkHttpClient
+import com.farsitel.bazaar.base.network.model.EndpointDetector
+import com.farsitel.bazaar.base.network.model.RemoteCommunicationConfig
+import com.farsitel.bazaar.base.network.model.createRetrofitService
+import com.farsitel.bazaar.base.network.model.detect
+import com.farsitel.bazaar.dependencyinjection.scope.FeatureScope
+import dagger.Module
+import dagger.Provides
+import okhttp3.OkHttpClient
+import retrofit2.Converter
+
+@Module
+class %MODULE_NAME_CAMEL_CASE%NetworkModule {
+
+   // @Provides
+   // @FeatureScope
+   // fun provide%MODULE_NAME_CAMEL_CASE%Service(
+   //     @NormalOkHttpClient okHttpClient: OkHttpClient,
+   //     detector: EndpointDetector,
+   //     factory: Converter.Factory
+   // ): %MODULE_NAME_CAMEL_CASE%Service {
+   //     return createRetrofitService(
+   //         okHttpClient,
+   //         detector.detect(RemoteCommunicationConfig.),
+   //         factory
+   //     )
+   // }
+}

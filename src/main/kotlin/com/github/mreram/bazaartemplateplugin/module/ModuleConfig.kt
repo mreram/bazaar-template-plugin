@@ -3,6 +3,7 @@ package com.github.mreram.bazaartemplateplugin.module
 object ModuleConfig {
 
     var name: String = ""
+    var nameCamelCase: String = ""
     var hasDi: Boolean = false
     var hasDataSource: Boolean = false
     var hasNetwork: Boolean = false

@@ -1,5 +1,6 @@
 package com.github.mreram.bazaartemplateplugin.module
 
+import android.databinding.tool.ext.toCamelCase
 import com.intellij.ui.JBColor
 import com.intellij.ui.components.JBBox
 import com.intellij.ui.components.JBCheckBox
@@ -18,6 +19,7 @@ import javax.swing.JPanel
 class ModuleWizardStep1 : WizardStep<WizardModel>() {
 
     private lateinit var nameTextField: JBTextField
+    private lateinit var nameCamelCaseTextField: JBTextField
     private lateinit var datasourceCheckBox: JBCheckBox
     private lateinit var actionLogCheckBox: JBCheckBox
     private lateinit var networkCheckBox: JBCheckBox
@@ -37,6 +39,7 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
         state.NEXT.isEnabled = false
         val dialogPanel = JPanel(VerticalLayout().apply { gap = 5 })
         nameTextField = JBTextField()
+        nameCamelCaseTextField = JBTextField()
         nameTextField.onTextChange {
             state.NEXT.isEnabled = nameTextField.text.isNotEmpty()
             if (nameTextField.text.any { it.isUpperCase() }) {
@@ -45,10 +48,13 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
             } else {
                 errorLabel?.text = ""
             }
+            nameCamelCaseTextField.text = nameTextField.text.toCamelCase()
         }
         with(dialogPanel) {
             add(JBLabel("Name:"), BorderLayout.LINE_START)
             add(nameTextField, BorderLayout.LINE_START)
+            add(JBLabel("Name Camel Case:"), BorderLayout.LINE_START)
+            add(nameCamelCaseTextField, BorderLayout.LINE_START)
             dialogPanel.add(JBBox.createVerticalStrut(8))
             add(JBLabel("Config your structure, you need to:"), BorderLayout.LINE_START)
             datasourceCheckBox = JBCheckBox("Datasource").also { add(it) }
@@ -66,6 +72,7 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
 
     override fun onNext(model: WizardModel?): WizardStep<*> {
         ModuleConfig.name = nameTextField.text
+        ModuleConfig.nameCamelCase = nameCamelCaseTextField.text
         ModuleConfig.hasActionLog = actionLogCheckBox.isSelected
         ModuleConfig.hasDataSource = datasourceCheckBox.isSelected
         ModuleConfig.hasNetwork = networkCheckBox.isSelected

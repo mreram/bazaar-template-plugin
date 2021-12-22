@@ -31,6 +31,7 @@ private fun addModuleToSettingsGradle(module: Module) {
 data class Module(
     val rootPath: String,
     val name: String,
+    val nameCamelCase: String,
     val project: Project,
     val files: List<String>
 )
@@ -38,6 +39,7 @@ data class Module(
 class ModuleBuilder {
 
     private var name: String = ""
+    private var nameCamelCase: String = ""
     private var rootPath: String = ""
     private var project: Project? = null
     private var hasDataSource: Boolean = false
@@ -52,6 +54,10 @@ class ModuleBuilder {
 
     fun name(value: String) {
         name = value
+    }
+
+    fun nameCamelCase(value: String) {
+        nameCamelCase = value
     }
 
     fun project(value: Project) {
@@ -99,6 +105,7 @@ class ModuleBuilder {
         return Module(
             rootPath,
             name,
+            nameCamelCase,
             requireNotNull(project),
             files
         )

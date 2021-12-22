@@ -1,0 +1,35 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.module
+
+import androidx.lifecycle.ViewModel
+import com.farsitel.bazaar.%MODULE_NAME%.di.qualifier.%MODULE_NAME_CAMEL_CASE%Injector
+import com.farsitel.bazaar.%MODULE_NAME%.di.scope.%MODULE_NAME_CAMEL_CASE%Scope
+import com.farsitel.bazaar.giant.di.annotation.ViewModelKey
+import com.farsitel.bazaar.giant.di.module.ViewModelFactory
+import com.farsitel.bazaar.giant.di.module.ViewModelProviders
+import com.farsitel.bazaar.giant.di.qualifier.GiantInjector
+import dagger.Binds
+import dagger.Module
+import dagger.Provides
+import dagger.multibindings.IntoMap
+
+@Module
+interface %MODULE_NAME_CAMEL_CASE%ViewModelModule {
+
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(%MODULE_NAME_CAMEL_CASE%ViewModel::class)
+//    @%MODULE_NAME_CAMEL_CASE%Injector
+//    fun bind%MODULE_NAME_CAMEL_CASE%ViewModel(input: %MODULE_NAME_CAMEL_CASE%ViewModel): ViewModel
+
+    companion object {
+
+        @Provides
+        @%MODULE_NAME_CAMEL_CASE%Scope
+        fun provideViewModelFactory(
+            @%MODULE_NAME_CAMEL_CASE%Injector viewModelProviders: ViewModelProviders,
+            @GiantInjector giantViewModelProviders: ViewModelProviders
+        ): ViewModelFactory {
+            return ViewModelFactory(giantViewModelProviders.plus(viewModelProviders))
+        }
+    }
+}

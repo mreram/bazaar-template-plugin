@@ -29,6 +29,7 @@ class ModuleBuilderDialog(
         module {
             project(project)
             name(ModuleConfig.name)
+            nameCamelCase(ModuleConfig.nameCamelCase)
             rootPath(rootPath)
             hasDataSource(ModuleConfig.hasDataSource)
             hasDi(ModuleConfig.hasDi)
