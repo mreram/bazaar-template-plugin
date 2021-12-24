@@ -8,7 +8,7 @@ import org.jdesktop.swingx.VerticalLayout
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class ModuleWizardStep3 : WizardStep<WizardModel>() {
+class ModuleWizardFinalStep : WizardStep<WizardModel>() {
 
     override fun prepare(state: WizardNavigationState?): JComponent {
         val dialogPanel = JPanel(VerticalLayout().apply { gap = 5 })

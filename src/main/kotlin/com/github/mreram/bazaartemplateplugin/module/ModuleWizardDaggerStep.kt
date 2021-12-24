@@ -1,7 +1,9 @@
 package com.github.mreram.bazaartemplateplugin.module
 
+import com.github.mreram.bazaartemplateplugin.builders.module.dagger.DaggerComponentType
 import com.intellij.ui.components.JBCheckBox
 import com.intellij.ui.components.JBLabel
+import com.intellij.ui.components.JBRadioButton
 import com.intellij.ui.wizard.WizardModel
 import com.intellij.ui.wizard.WizardNavigationState
 import com.intellij.ui.wizard.WizardStep
@@ -14,12 +16,18 @@ import javax.swing.Box
 import javax.swing.ButtonGroup
 import javax.swing.JComponent
 import javax.swing.JPanel
-import javax.swing.JRadioButton
 
-class ModuleWizardStep2 : WizardStep<WizardModel>() {
+class ModuleWizardDaggerStep : WizardStep<WizardModel>() {
 
     private var component: JComponent? = null
     private var daggerUi: JComponent? = null
+    private var componentTypeButtonGroup: ButtonGroup? = null
+
+    private lateinit var viewModelCheckBox: JBCheckBox
+    private lateinit var networkCheckBox: JBCheckBox
+    private lateinit var startupCheckBox: JBCheckBox
+    private lateinit var workerCheckBox: JBCheckBox
+    private lateinit var fragmentCheckBox: JBCheckBox
 
     override fun prepare(state: WizardNavigationState?): JComponent {
         if (component == null) {
@@ -55,19 +63,39 @@ class ModuleWizardStep2 : WizardStep<WizardModel>() {
         return JPanel(layoutManager).apply {
             add(Box.createVerticalStrut(10))
             add(JBLabel("Dagger Component type:"), BorderLayout.LINE_START)
-            val buttonGroup = ButtonGroup()
-            buttonGroup.add(JRadioButton("Expose Component"))
-            buttonGroup.add(JRadioButton("Dispatcher Component"))
-            for (radioButton in buttonGroup.elements) {
+            componentTypeButtonGroup = ButtonGroup()
+            componentTypeButtonGroup?.add(JBRadioButton("ExposeComponent").also {
+                it.actionCommand = "ExposeComponent"
+            })
+            componentTypeButtonGroup?.add(JBRadioButton("DispatcherComponent").also {
+                it.actionCommand = "ExposeComponent"
+            })
+            for (radioButton in componentTypeButtonGroup!!.elements) {
                 add(radioButton)
             }
             add(Box.createVerticalStrut(10))
             add(JBLabel("Modules that you need to select:"), BorderLayout.LINE_START)
-            add(JBCheckBox("ViewModel Module"))
-            add(JBCheckBox("Fragment Module"))
-            add(JBCheckBox("Startup Module"))
-            add(JBCheckBox("Worker Module"))
+            viewModelCheckBox = JBCheckBox("ViewModel module").also { add(it) }
+            fragmentCheckBox = JBCheckBox("Fragment module").also { add(it) }
+            networkCheckBox = JBCheckBox("Network module").also { add(it) }
+            startupCheckBox = JBCheckBox("Startup module").also { add(it) }
+            workerCheckBox = JBCheckBox("Worker module").also { add(it) }
             panel.add(this)
         }
+    }
+
+    override fun onNext(model: WizardModel?): WizardStep<*> {
+        val selectedActionCommand = (componentTypeButtonGroup?.selection?.actionCommand)
+        ModuleConfig.componentType = if (selectedActionCommand == DaggerComponentType.ExposeComponent.name) {
+            DaggerComponentType.ExposeComponent
+        } else {
+            DaggerComponentType.DispatcherComponent
+        }
+        ModuleConfig.hasViewModel = viewModelCheckBox.isSelected
+        ModuleConfig.hasNetwork = networkCheckBox.isSelected
+        ModuleConfig.hasStartupTask = startupCheckBox.isSelected
+        ModuleConfig.hasWorker = workerCheckBox.isSelected
+        ModuleConfig.hasFragment = fragmentCheckBox.isSelected
+        return super.onNext(model)
     }
 }

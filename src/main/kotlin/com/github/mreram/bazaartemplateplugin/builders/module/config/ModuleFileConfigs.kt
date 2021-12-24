@@ -25,22 +25,35 @@ object ModuleFileConfigs {
         "$BASE_PATH_JAVA_FILES_MODULE/viewmodel/",
         "$BASE_PATH_JAVA_FILES_MODULE/view/adapter/"
     )
-    val diFilePaths: Array<String> = arrayOf(
-        "$BASE_PATH_JAVA_FILES_MODULE/di/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/builder/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/component/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/module/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/qualifier/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/scope/",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/builder/%ModuleNameCamelCase%ComponentBuilder.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/component/%ModuleNameCamelCase%Component.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%FragmentModule.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%NetworkModule.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%ViewModelModule.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/scope/%ModuleNameCamelCase%Scope.kt.ft",
-        "$BASE_PATH_JAVA_FILES_MODULE/di/qualifier/%ModuleNameCamelCase%Injector.kt.ft",
-    )
     val actionLogFilePaths: Array<String> = arrayOf(
         "$BASE_PATH_JAVA_FILES_MODULE/actionlog/"
+    )
+
+    // Dagger
+    val diFilePaths: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/"
+    )
+    val daggerComponentFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/builder/%ModuleNameCamelCase%ComponentBuilder.kt.ft",
+        "$BASE_PATH_JAVA_FILES_MODULE/di/component/%ModuleNameCamelCase%Component.kt.ft"
+    )
+    val daggerFragmentFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%FragmentModule.kt.ft",
+        "$BASE_PATH_JAVA_FILES_MODULE/di/scope/%ModuleNameCamelCase%Scope.kt.ft"
+    )
+    val daggerViewModelFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/qualifier/%ModuleNameCamelCase%Injector.kt.ft",
+        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%ViewModelModule.kt.ft",
+        "$BASE_PATH_JAVA_FILES_MODULE/di/scope/%ModuleNameCamelCase%Scope.kt.ft"
+    )
+    val daggerNetworkFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%NetworkModule.kt.ft"
+    )
+    val daggerWorkerFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%WorkerModule.kt.ft"
+    )
+    val daggerStartupTaskFiles: Array<String> = arrayOf(
+        "$BASE_PATH_JAVA_FILES_MODULE/di/module/%ModuleNameCamelCase%StartupTasksModule.kt.ft",
+        "$BASE_PATH_JAVA_FILES_MODULE/di/qualifier/%ModuleNameCamelCase%StartupTasks.kt.ft"
     )
 }

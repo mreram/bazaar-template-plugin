@@ -1,0 +1,18 @@
+package com.farsitel.bazaar.%MODULE_NAME%.di.module
+
+import com.farsitel.bazaar.base.work.AssistedWorkerFactory
+import com.farsitel.bazaar.base.work.WorkerKey
+import com.squareup.inject.assisted.dagger2.AssistedModule
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.IntoMap
+
+@AssistedModule
+@Module(includes = [AssistedInject_%MODULE_NAME_CAMEL_CASE%WorkerModule::class])
+interface %MODULE_NAME_CAMEL_CASE%WorkerModule {
+
+   // @Binds
+   // @IntoMap
+   // @WorkerKey(%MODULE_NAME_CAMEL_CASE%Worker::class)
+   // fun bind%MODULE_NAME_CAMEL_CASE%Worker(factory: %MODULE_NAME_CAMEL_CASE%Worker.Factory): AssistedWorkerFactory
+}

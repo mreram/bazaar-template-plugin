@@ -4,8 +4,8 @@ import com.intellij.ui.wizard.WizardModel
 
 class ModuleWizardModel : WizardModel("Bazaar Module Wizard") {
     init {
-        add(ModuleWizardStep1())
-        add(ModuleWizardStep2())
-        add(ModuleWizardStep3())
+        add(ModuleWizardStructureStep())
+        add(ModuleWizardDaggerStep())
+        add(ModuleWizardFinalStep())
     }
 }

@@ -6,7 +6,8 @@ object ModuleArgumentConfigs {
 
     fun contentArguments(module: Module) = mapOf(
         "%MODULE_NAME%" to module.name,
-        "%MODULE_NAME_CAMEL_CASE%" to module.nameCamelCase
+        "%MODULE_NAME_CAMEL_CASE%" to module.nameCamelCase,
+        "%COMPONENT_TYPE%" to module.componentTypeName,
     )
 
     fun pathArguments(module: Module) = mapOf(

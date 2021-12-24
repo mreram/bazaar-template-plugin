@@ -2,6 +2,7 @@ package com.github.mreram.bazaartemplateplugin.builders.module
 
 import com.github.mreram.bazaartemplateplugin.builders.module.config.ModuleArgumentConfigs
 import com.github.mreram.bazaartemplateplugin.builders.module.config.ModuleFileConfigs
+import com.github.mreram.bazaartemplateplugin.builders.module.dagger.DaggerComponentType
 import com.github.mreram.bazaartemplateplugin.codegenerator.TemplateGenerator
 import com.intellij.openapi.project.Project
 import java.io.File
@@ -32,6 +33,7 @@ data class Module(
     val rootPath: String,
     val name: String,
     val nameCamelCase: String,
+    val componentTypeName: String,
     val project: Project,
     val files: List<String>
 )
@@ -47,6 +49,11 @@ class ModuleBuilder {
     private var hasNetwork: Boolean = false
     private var hasActionLog: Boolean = false
     private var hasView: Boolean = false
+    private var componentType: DaggerComponentType? = null
+    private var hasViewModel: Boolean = false
+    private var hasFragment: Boolean = false
+    private var hasWorker: Boolean = false
+    private var hasStartupTask: Boolean = false
 
     fun rootPath(value: String) {
         rootPath = value
@@ -76,6 +83,22 @@ class ModuleBuilder {
         hasNetwork = value
     }
 
+    fun hasViewModel(value: Boolean) {
+        hasViewModel = value
+    }
+
+    fun hasWorker(value: Boolean) {
+        hasWorker = value
+    }
+
+    fun hasStartupTask(value: Boolean) {
+        hasStartupTask = value
+    }
+
+    fun hasFragment(value: Boolean) {
+        hasFragment = value
+    }
+
     fun hasView(value: Boolean) {
         hasView = value
     }
@@ -84,9 +107,30 @@ class ModuleBuilder {
         hasActionLog = value
     }
 
+    fun componentType(value: DaggerComponentType?) {
+        componentType = value
+    }
+
     fun build(): Module {
+        val projectFiles = buildStructure() + buildDagger()
+        val componentTypeName = if (componentType == DaggerComponentType.ExposeComponent) {
+            "Expose"
+        } else {
+            "Dispatcher"
+        }
+        return Module(
+            rootPath,
+            name,
+            nameCamelCase,
+            componentTypeName,
+            requireNotNull(project),
+            projectFiles
+        )
+    }
+
+    private fun buildStructure(): MutableList<String> {
         val files = mutableListOf<String>()
-        files += ModuleFileConfigs.baseModuleFilePaths
+        ModuleFileConfigs.baseModuleFilePaths
         if (hasDataSource) {
             files += ModuleFileConfigs.datasourceFilePaths
         }
@@ -102,12 +146,29 @@ class ModuleBuilder {
         if (hasActionLog) {
             files += ModuleFileConfigs.actionLogFilePaths
         }
-        return Module(
-            rootPath,
-            name,
-            nameCamelCase,
-            requireNotNull(project),
-            files
-        )
+        return files
+    }
+
+    private fun buildDagger(): MutableList<String> {
+        val files = mutableListOf<String>()
+        if (hasDi) {
+            files += ModuleFileConfigs.daggerComponentFiles
+        }
+        if (hasViewModel) {
+            files += ModuleFileConfigs.daggerViewModelFiles
+        }
+        if (hasFragment) {
+            files += ModuleFileConfigs.daggerFragmentFiles
+        }
+        if (hasNetwork) {
+            files += ModuleFileConfigs.daggerNetworkFiles
+        }
+        if (hasStartupTask) {
+            files += ModuleFileConfigs.daggerStartupTaskFiles
+        }
+        if (hasWorker) {
+            files += ModuleFileConfigs.daggerWorkerFiles
+        }
+        return files
     }
 }

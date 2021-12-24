@@ -1,6 +1,6 @@
 package com.farsitel.bazaar.%MODULE_NAME%.di.component
 
-import com.farsitel.bazaar.androiddagger.DispatcherComponent
+import com.farsitel.bazaar.androiddagger.%COMPONENT_TYPE%Component
 import com.farsitel.bazaar.%MODULE_NAME%.di.module.%MODULE_NAME_CAMEL_CASE%FragmentModule
 import com.farsitel.bazaar.%MODULE_NAME%.di.module.%MODULE_NAME_CAMEL_CASE%NetworkModule
 import com.farsitel.bazaar.base.network.di.component.NetworkComponent
@@ -23,4 +23,4 @@ import dagger.android.AndroidInjectionModule
         NetworkComponent::class
     ]
 )
-interface %MODULE_NAME_CAMEL_CASE%Component : DispatcherComponent
+interface %MODULE_NAME_CAMEL_CASE%Component : %COMPONENT_TYPE%Component

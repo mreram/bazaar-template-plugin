@@ -36,6 +36,11 @@ class ModuleBuilderDialog(
             hasView(ModuleConfig.hasView)
             hasActionLog(ModuleConfig.hasActionLog)
             hasNetwork(ModuleConfig.hasNetwork)
+            componentType(ModuleConfig.componentType)
+            hasViewModel(ModuleConfig.hasViewModel)
+            hasWorker(ModuleConfig.hasWorker)
+            hasStartupTask(ModuleConfig.hasStartupTask)
+            hasFragment(ModuleConfig.hasFragment)
         }
         reloadAllRepositoryLibraries(project)
         GradleSyncInvoker.getInstance().requestProjectSync(

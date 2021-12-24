@@ -16,7 +16,7 @@ import java.awt.Dimension
 import javax.swing.JComponent
 import javax.swing.JPanel
 
-class ModuleWizardStep1 : WizardStep<WizardModel>() {
+class ModuleWizardStructureStep : WizardStep<WizardModel>() {
 
     private lateinit var nameTextField: JBTextField
     private lateinit var nameCamelCaseTextField: JBTextField
@@ -53,7 +53,7 @@ class ModuleWizardStep1 : WizardStep<WizardModel>() {
         with(dialogPanel) {
             add(JBLabel("Name:"), BorderLayout.LINE_START)
             add(nameTextField, BorderLayout.LINE_START)
-            add(JBLabel("Name Camel Case:"), BorderLayout.LINE_START)
+            add(JBLabel("Name camel case:"), BorderLayout.LINE_START)
             add(nameCamelCaseTextField, BorderLayout.LINE_START)
             dialogPanel.add(JBBox.createVerticalStrut(8))
             add(JBLabel("Config your structure, you need to:"), BorderLayout.LINE_START)
