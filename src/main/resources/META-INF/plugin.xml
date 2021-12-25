@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.github.mreram.bazaartemplateplugin</id>
-    <name>bazaar-template-plugin</name>
+    <name>Bazaar template</name>
     <vendor>mreram</vendor>
 
     <description><![CDATA[
