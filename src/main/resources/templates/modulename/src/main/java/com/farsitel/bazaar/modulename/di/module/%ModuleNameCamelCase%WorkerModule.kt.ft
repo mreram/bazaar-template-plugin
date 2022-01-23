@@ -14,5 +14,7 @@ interface %MODULE_NAME_CAMEL_CASE%WorkerModule {
    // @Binds
    // @IntoMap
    // @WorkerKey(%MODULE_NAME_CAMEL_CASE%Worker::class)
-   // fun bind%MODULE_NAME_CAMEL_CASE%Worker(factory: %MODULE_NAME_CAMEL_CASE%Worker.Factory): AssistedWorkerFactory
+   // fun bind%MODULE_NAME_CAMEL_CASE%Worker(
+   //     factory: %MODULE_NAME_CAMEL_CASE%Worker.Factory
+   // ): AssistedWorkerFactory
 }

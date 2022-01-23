@@ -1,14 +1,11 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
 
 apply from: "$rootDir/configs/detektconfig.gradle"
 
 android {
     buildFeatures {
-        dataBinding true
         viewBinding true
     }
 }
@@ -25,9 +22,11 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$library.dagger"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$library.navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$library.navigation"
 
-    implementation project(":giant")
+    implementation "com.google.code.gson:gson:$library.gson"
+
+    implementation "com.squareup.retrofit2:retrofit:$library.retrofit"
+
     implementation project(":common:plugins")
     implementation project(":library:androiddagger")
     implementation project(":library:dependencyinjection")
@@ -35,14 +34,14 @@ dependencies {
     implementation project(":library:navigation")
     implementation project(":library:plaugin")
     implementation project(":library:designsystem")
-    implementation project(":library:imageloader")
     implementation project(":library:base:util")
     implementation project(":library:logger")
     implementation project(':library:base:network')
+    implementation project(':library:base:work')
     implementation project(':library:analytics')
 
     testImplementation "junit:junit:$library.junit"
     testImplementation "androidx.arch.core:core-testing:$library.coreTesting"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$library.mockito"
     testImplementation project(":library:test")
-    testImplementation "io.mockk:mockk:$library.mockk"
 }

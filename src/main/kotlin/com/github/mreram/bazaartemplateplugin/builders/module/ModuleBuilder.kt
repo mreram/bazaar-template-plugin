@@ -130,7 +130,7 @@ class ModuleBuilder {
 
     private fun buildStructure(): MutableList<String> {
         val files = mutableListOf<String>()
-        ModuleFileConfigs.baseModuleFilePaths
+        files += ModuleFileConfigs.baseModuleFilePaths
         if (hasDataSource) {
             files += ModuleFileConfigs.datasourceFilePaths
         }

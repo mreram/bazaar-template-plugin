@@ -3,7 +3,7 @@ package com.farsitel.bazaar.%MODULE_NAME%.di.module
 import com.farsitel.bazaar.dependencyinjection.StartupTaskKey
 import com.farsitel.bazaar.dependencyinjection.StartupTasks
 import com.farsitel.bazaar.dependencyinjection.scope.FeatureScope
-import com.farsitel.bazaar.review.di.qualifier.%MODULE_NAME_CAMEL_CASE%StartupTasks
+import com.farsitel.bazaar.%MODULE_NAME%.di.qualifier.%MODULE_NAME_CAMEL_CASE%StartupTasks
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -18,13 +18,14 @@ interface %MODULE_NAME_CAMEL_CASE%StartupTasksModule {
 
     companion object {
 
-        @Provides
-        @FeatureScope
-        @IntoMap
-        @StartupTaskKey("%MODULE_NAME_CAMEL_CASE%")
-        @MyReviewStartupTasks
-        fun provide%MODULE_NAME_CAMEL_CASE%WorkSchedulerTask(scheduler: %MODULE_NAME_CAMEL_CASE%WorkScheduler) = Runnable {
-           // do something
-        }
+       // @Provides
+       // @IntoMap
+       // @StartupTaskKey("%MODULE_NAME_CAMEL_CASE%")
+       // @%MODULE_NAME_CAMEL_CASE%StartupTasks
+       // fun provide%MODULE_NAME_CAMEL_CASE%WorkSchedulerTask(
+       //     scheduler: %MODULE_NAME_CAMEL_CASE%WorkScheduler
+       // ) = Runnable {
+       //    // do something
+       // }
     }
 }

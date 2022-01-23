@@ -68,7 +68,7 @@ class ModuleWizardDaggerStep : WizardStep<WizardModel>() {
                 it.actionCommand = "ExposeComponent"
             })
             componentTypeButtonGroup?.add(JBRadioButton("DispatcherComponent").also {
-                it.actionCommand = "ExposeComponent"
+                it.actionCommand = "DispatcherComponent"
             })
             for (radioButton in componentTypeButtonGroup!!.elements) {
                 add(radioButton)
@@ -86,7 +86,9 @@ class ModuleWizardDaggerStep : WizardStep<WizardModel>() {
 
     override fun onNext(model: WizardModel?): WizardStep<*> {
         val selectedActionCommand = (componentTypeButtonGroup?.selection?.actionCommand)
-        ModuleConfig.componentType = if (selectedActionCommand == DaggerComponentType.ExposeComponent.name) {
+        ModuleConfig.componentType = if (
+            selectedActionCommand == DaggerComponentType.ExposeComponent.name
+        ) {
             DaggerComponentType.ExposeComponent
         } else {
             DaggerComponentType.DispatcherComponent
