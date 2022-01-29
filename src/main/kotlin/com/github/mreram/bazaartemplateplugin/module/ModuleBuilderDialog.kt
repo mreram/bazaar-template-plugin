@@ -50,9 +50,4 @@ class ModuleBuilderDialog(
             )
         )
     }
-
-    companion object {
-
-        private const val DELAY_SYNC_GRADLE_MILLISECOND = 500L
-    }
 }

@@ -1,42 +1,9 @@
 package com.github.mreram.bazaartemplateplugin.builders.module
 
-import com.github.mreram.bazaartemplateplugin.builders.module.config.ModuleArgumentConfigs
 import com.github.mreram.bazaartemplateplugin.builders.module.config.ModuleFileConfigs
 import com.github.mreram.bazaartemplateplugin.builders.module.dagger.DaggerComponentType
-import com.github.mreram.bazaartemplateplugin.codegenerator.TemplateGenerator
+import com.github.mreram.bazaartemplateplugin.builders.module.model.BazaarModule
 import com.intellij.openapi.project.Project
-import java.io.File
-
-fun module(builder: ModuleBuilder.() -> Unit) {
-    val module = ModuleBuilder().apply(builder).build()
-    TemplateGenerator().createTemplateFromResources(
-        module.files,
-        module.rootPath,
-        pathArguments = ModuleArgumentConfigs.pathArguments(module),
-        contentArguments = ModuleArgumentConfigs.contentArguments(module)
-    )
-    addModuleToSettingsGradle(module)
-}
-
-private fun addModuleToSettingsGradle(module: Module) {
-    val prefixModule = module.rootPath
-        .replace(module.project.basePath.toString(), "")
-        .replace("/", ":")
-
-    File(
-        module.project.basePath,
-        "settings.gradle"
-    ).appendText("\ninclude '${prefixModule}:${module.name}'")
-}
-
-data class Module(
-    val rootPath: String,
-    val name: String,
-    val nameCamelCase: String,
-    val componentTypeName: String,
-    val project: Project,
-    val files: List<String>
-)
 
 class ModuleBuilder {
 
@@ -111,14 +78,14 @@ class ModuleBuilder {
         componentType = value
     }
 
-    fun build(): Module {
+    fun build(): BazaarModule {
         val projectFiles = buildStructure() + buildDagger()
         val componentTypeName = if (componentType == DaggerComponentType.ExposeComponent) {
             "Expose"
         } else {
             "Dispatcher"
         }
-        return Module(
+        return BazaarModule(
             rootPath,
             name,
             nameCamelCase,
