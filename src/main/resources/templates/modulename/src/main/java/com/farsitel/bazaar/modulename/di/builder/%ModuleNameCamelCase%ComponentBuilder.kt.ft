@@ -7,7 +7,6 @@ import com.farsitel.bazaar.dagger.BazaarComponentBuilder
 import com.farsitel.bazaar.dependencyinjection.ComponentBuilder
 import com.farsitel.bazaar.dependencyinjection.StartupTasks
 import com.farsitel.bazaar.dependencyinjection.UpgradeTasks
-import com.farsitel.bazaar.giant.di.builder.GiantComponentBuilder
 
 object %MODULE_NAME_CAMEL_CASE%ComponentBuilder : ComponentBuilder<%MODULE_NAME_CAMEL_CASE%Component>() {
 
@@ -17,7 +16,6 @@ object %MODULE_NAME_CAMEL_CASE%ComponentBuilder : ComponentBuilder<%MODULE_NAME_
     ): %MODULE_NAME_CAMEL_CASE%Component {
         return Dagger%MODULE_NAME_CAMEL_CASE%Component.builder()
             .bazaarComponent(BazaarComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
-            .giantComponent(GiantComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
             .networkComponent(NetworkComponentBuilder.getComponent(addStartupTask, addUpgradeTask))
             .build()
     }

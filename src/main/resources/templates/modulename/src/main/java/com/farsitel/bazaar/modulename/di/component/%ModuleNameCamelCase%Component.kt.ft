@@ -1,26 +1,19 @@
 package com.farsitel.bazaar.%MODULE_NAME%.di.component
 
 import com.farsitel.bazaar.androiddagger.%COMPONENT_TYPE%Component
-import com.farsitel.bazaar.%MODULE_NAME%.di.module.%MODULE_NAME_CAMEL_CASE%FragmentModule
-import com.farsitel.bazaar.%MODULE_NAME%.di.module.%MODULE_NAME_CAMEL_CASE%NetworkModule
 import com.farsitel.bazaar.base.network.di.component.NetworkComponent
 import com.farsitel.bazaar.dagger.BazaarComponent
 import com.farsitel.bazaar.dependencyinjection.scope.FeatureScope
-import com.farsitel.bazaar.giant.di.component.GiantComponent
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 
 @FeatureScope
 @Component(
     modules = [
-        AndroidInjectionModule::class,
-        %MODULE_NAME_CAMEL_CASE%FragmentModule::class,
-        %MODULE_NAME_CAMEL_CASE%NetworkModule::class
+        AndroidInjectionModule::class
     ],
     dependencies = [
-        GiantComponent::class,
-        BazaarComponent::class,
-        NetworkComponent::class
+        BazaarComponent::class
     ]
 )
 interface %MODULE_NAME_CAMEL_CASE%Component : %COMPONENT_TYPE%Component
